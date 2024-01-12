@@ -1,24 +1,42 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import { lazy, Suspense, useContext, useEffect, useState } from 'react';
+import { Route,Routes } from 'react-router-dom';
+import NotFound from './RouterDom/pages/NotFound/NotFound';
+import Loading from './loading';
+import Footer from './component/Footer/Footer';
+import AllPage from './RouterDom/Page'
+import Login from './RouterDom/pages/login/Login';
+import Header from './component/Header/Header';
 function App() {
+  const showPageUser=(AllPage:any)=>{
+    if(AllPage.length>0){
+      return AllPage.map((page:any,index:any)=>(
+          <>
+           <Route
+          key={index}
+          path={page.path}
+          element={<Suspense fallback={<Loading/>}>
+          {page.main}
+        </Suspense>
+        }
+        />
+          </>
+      ))
+  }}
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      {/* <Header/> */}
+        <Routes>
+         { showPageUser(AllPage)}
+         <Route
+          path='/*'
+          element={<NotFound/>}
+         />
+      </Routes>
+      {/* <Footer/> */}
     </div>
   );
 }
