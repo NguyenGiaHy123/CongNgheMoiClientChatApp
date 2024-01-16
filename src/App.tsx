@@ -10,21 +10,21 @@ import AllPage from './RouterDom/Page'
 import Login from './RouterDom/pages/login/Login';
 import Header from './component/Header/Header';
 function App() {
-  const showPageUser=(AllPage:any)=>{
-    if(AllPage.length>0){
-      return AllPage.map((page:any,index:any)=>(
-          <>
-           <Route
+  const showPageUser = (AllPage: any) => {
+    if (AllPage.length > 0) {
+      return AllPage.map((page: any, index: any) => (
+        <Route
           key={index}
           path={page.path}
-          element={<Suspense fallback={<Loading/>}>
-          {page.main}
-        </Suspense>
-        }
+          element={
+            <Suspense fallback={<Loading />}>
+              {page.main}
+            </Suspense>
+          }
         />
-          </>
-      ))
-  }}
+      ));
+    }
+  };
 
   return (
     <div className="app">

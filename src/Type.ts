@@ -21,3 +21,16 @@ export interface IRouteConfig {
     channel: string[];
     isOnline: boolean;
   }
+
+  export interface ILogin{
+    email: string;
+    password: string;
+  }
+
+  export interface IInitialStateUser{
+  
+    UserSlice:IUser[],
+    loading:boolean
+    tokenUser:String|null
+    
+  }

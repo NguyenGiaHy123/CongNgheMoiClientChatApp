@@ -7,11 +7,11 @@ export default function Register() {
   const dispatch=useDispatch();
   
 
-  const Users=useSelector((state:any)=>state.Users.UserSlice);
-  console.log(Users)
-  useEffect(()=>{
-        dispatch<any>(getAllUser())
-  },[])
+  // const Users=useSelector((state:any)=>state.Users.UserSlice);
+  // console.log(Users)
+  // useEffect(()=>{
+  //       dispatch<any>(getAllUser())
+  // },[])
   return (
     <div>Register</div>
   )

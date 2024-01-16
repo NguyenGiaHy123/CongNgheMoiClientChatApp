@@ -18,28 +18,16 @@ export default function Home() {
             {/* này là thanh tabbar màu xanh bên trái giống zalo */}
             <div className='areaLeft bg-blue-500'>
                 1
-
             </div>
-
-
-
-
+            
             {/* này là phần hiển thị user */}
             <div className='areaCenter'>
-
-                
                 <AreaCenter
                     listUser={ListUsers}
                 />
-
-                
             </div>
 
-
-
-
             {/* này là phần hiển thị tin nhắn */}
-
             <div className='areaRight bg-gray-400'>
                 3
             </div>

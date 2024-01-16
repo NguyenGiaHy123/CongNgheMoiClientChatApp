@@ -5,14 +5,45 @@ import GoogleLogin from 'react-google-login';
 import './index.css'
 import ReCAPTCHA from "react-google-recaptcha";
 import { LoadingOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { userLogin } from '../../../feature/user/pathApi';
+import { ILogin } from '../../../Type';
+import { useNavigate } from 'react-router-dom';
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 export default function Login() {
 
   const [responseRecapCha, setResponeRecapCha] = useState(false);
+  const dispatch=useDispatch();
+  const loading=useSelector((state:any)=>state.Users.loading)
+const navigate=useNavigate()
+  console.log(responseRecapCha)
+  
 
   ///============================= du lieu in sert hoan thanh se chay vao day ==========================///
-  const onFineshInSertLogin = (value: any) => {
+  const onFineshInSertLogin = (value: ILogin) => {
+    if(responseRecapCha){   
+      const errorRecapCha = document.querySelector(".errorRecapCha");
+      if(errorRecapCha){
+        errorRecapCha.innerHTML = "";
+        if(value){
+        const userLoginResult=  dispatch<any>(userLogin(value));
+        if(userLoginResult){
+          navigate('/home')
+
+        }
+        }
+      }
+  
+    }
+    else{
+          const errorRecapCha = document.querySelector(".errorRecapCha");
+          if(errorRecapCha)
+          errorRecapCha.innerHTML="Vui lòng xác mình người máy ";
+       
+      
+      
+    }
     console.log(value)
   }
 
@@ -29,6 +60,8 @@ export default function Login() {
     }
     else { setResponeRecapCha(false) }
   }
+
+
 
   ///=============================check RecapCha==========================///
 
@@ -98,11 +131,13 @@ export default function Login() {
             sitekey="6Lc6HdYgAAAAAIKgwEaw-mAtM1zOtaDW3YP9TJOt"
             onChange={onChangeReCapch}
           />
-          <p className='errorRecapCha' style={{ color: 'red' }}></p>
+         
         </div>
+     
+          <p className='errorRecapCha w-full flex items-center justify-center' style={{ color: 'red' }}></p>
         <Form.Item>
           <Button type="primary" className='w-full bg-blue-500 h-12 ' htmlType='submit'>
-            {<Spin indicator={antIcon} className='text-white mr-3' />}   Login
+            {loading&&<Spin indicator={antIcon} className='text-white mr-3' />}   Login
           </Button>
           <Button type="primary" className='w-full mt-4 mb-2 border-r h-12 border-gray-200' ghost>
             Gửi yêu cầu để đăng nhập
