@@ -13,19 +13,22 @@ export default function Home() {
     dispatch<any>(getAllUser());
   }, []);
 
+  {
+    /* <Sidebar /> */
+  }
+
   return (
     <div className="ContentHomeChat">
       {/* này là thanh tabbar màu xanh bên trái giống zalo */}
       <div className="areaLeft bg-blue-500">1</div>
-      {/* <Sidebar /> */}
 
-      {/* This is the user display section */}
+      {/* này là phần hiển thị user */}
       <div className="areaCenter">
         <AreaCenter listUser={ListUsers} />
       </div>
 
-      {/* This is the message display section */}
-      <div className="areaRight bg-gray-400 w-full md:w-1/4">3</div>
+      {/* này là phần hiển thị tin nhắn */}
+      <div className="areaRight bg-gray-400">3</div>
     </div>
   );
 }

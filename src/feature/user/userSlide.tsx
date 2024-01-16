@@ -1,17 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllUser } from "./pathApi";
-import { IUser } from "../../Type";
-
+import { getAllUser,userLogin } from "./pathApi";
+import { IInitialStateUser, IUser } from "../../Type";
+import { message,notification } from "antd";
 //khai bao typescript
-interface UserState {
-    UserSlice: IUser[];
-    loading: boolean;
 
-}
 //kieu du lieu cho initalstate
-const initialState: UserState = {
+const initialState: IInitialStateUser = {
     UserSlice: [],
     loading: false,
+    tokenUser:null
 };
 
 //tao slice
@@ -34,12 +31,40 @@ const userSlide = createSlice({
         //action.payload.data la data ma server tra ve
         //
         builder.addCase(getAllUser.fulfilled, (state:any, action) => {
-          
-      
             state.UserSlice = action.payload;
 
             console.log(state.UserSlice)
         });
+           
+        builder.addCase(userLogin.pending,(state,action)=>{
+            state.loading=true;
+        })
+
+        builder.addCase(userLogin.rejected,(state,action)=>{
+            state.loading=true;
+            notification["error"]({
+                message: 'Thông báo',
+                description:
+                  'Tài khoản hoặc mật khẩu không đúng',
+              });
+            })
+           
+        builder.addCase(userLogin.fulfilled,(state:any,action:any)=>{
+        state.loading=false;
+          const {token,user}=action.payload
+          if(user){
+            notification['success']({
+                message:'Thông báo',
+                description:"login success"
+            })
+          }
+          if(token){
+            state.tokenUser=token;
+            localStorage.setItem("tokenUser",token);
+          }
+        })
+
+        
 
     },
 })

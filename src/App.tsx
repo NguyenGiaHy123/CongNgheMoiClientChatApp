@@ -13,13 +13,15 @@ function App() {
   const showPageUser = (AllPage: any) => {
     if (AllPage.length > 0) {
       return AllPage.map((page: any, index: any) => (
-        <>
-          <Route
-            key={index}
-            path={page.path}
-            element={<Suspense fallback={<Loading />}>{page.main}</Suspense>}
-          />
-        </>
+        <Route
+          key={index}
+          path={page.path}
+          element={
+            <Suspense fallback={<Loading />}>
+              {page.main}
+            </Suspense>
+          }
+        />
       ));
     }
   };

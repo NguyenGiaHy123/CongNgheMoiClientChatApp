@@ -25,6 +25,10 @@ const AllPage: any = [
       main: <LoginPage/>,
     },
     {
+      path: '/',
+      main: <LoginPage/>,
+    },
+    {
         path: '/Register',
         main: <Register/>,
       },
