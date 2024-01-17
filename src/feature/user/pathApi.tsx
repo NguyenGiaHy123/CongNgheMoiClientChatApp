@@ -6,6 +6,7 @@ export const getAllUser = createAsyncThunk("getAllUser", async () => {
 
   return data;
 });
+
 export const userLogin = createAsyncThunk(
   "UserLogin",
   async (dataUserLogin: ILogin) => {

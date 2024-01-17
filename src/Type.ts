@@ -42,5 +42,5 @@ export interface IRouteConfig {
     status: string;
     phone: string;
     email: string;
-    avatar: string;
+    avatar: any;
   }

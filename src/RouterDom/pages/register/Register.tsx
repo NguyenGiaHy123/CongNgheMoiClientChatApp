@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllUser } from "../../../feature/user/pathApi";
-import { IUser } from "../../../Type";
-import { Button, Checkbox, Form, Input, Select } from "antd";
+import { getAllUser, userRegister } from "../../../feature/user/pathApi";
+import { IRegister, IUser } from "../../../Type";
+import { Button, Checkbox, Form, Input, Select, Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 import { Upload } from "antd";
 import ImgCrop from "antd-img-crop";
 import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
+import UserApi from "../../../api/user";
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 type FieldType = {
   name: string;
@@ -15,7 +18,7 @@ type FieldType = {
   status: string;
   phone: string;
   email: string;
-  avatar: string;
+  avatar: any;
 };
 
 export default function Register() {
@@ -51,6 +54,23 @@ export default function Register() {
     return e && e.fileList;
   };
 
+  const handleRegister = async (values: IRegister) => {
+    try {
+      // const response = await UserApi.UserRegister(values);
+      // Handle the response here
+      console.log('aaaaaaa', fileAvatar)
+
+      const formData = {
+        ...values,
+        avatar: fileAvatar?.thumbUrl,
+      };
+      // console.log('values', formData)
+      dispatch<any>(userRegister({ ...values, avatar: fileAvatar}));
+    } catch (error) {
+      // Handle the error here
+    }
+  };
+
   return (
     <div className="group-login ">
       <Form
@@ -58,6 +78,7 @@ export default function Register() {
         name="register"
         style={{ height: "100%" }}
         autoComplete="off"
+        onFinish={handleRegister}
       >
         <Form.Item<FieldType>
           label="Username"
@@ -149,14 +170,32 @@ export default function Register() {
         >
           <ImgCrop rotationSlider>
             <Upload
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
               listType="picture-card"
               onChange={onChange}
               onPreview={onPreview}
+              beforeUpload={() => false}
             >
               {!fileAvatar && "+ Upload"}
             </Upload>
           </ImgCrop>
+        </Form.Item>
+
+        <Form.Item>
+          <Button
+            type="primary"
+            className="w-full bg-blue-500 h-12 "
+            htmlType="submit"
+          >
+            {loading && (
+              <Spin indicator={antIcon} className="text-white mr-3" />
+            )}{" "}
+            Register
+          </Button>
+          {/* <Button type="primary" className='w-full mt-4 mb-2 border-r h-12 border-gray-200' ghost>
+            Gửi yêu cầu để đăng nhập
+          </Button> */}
+          {/* <p className="text-center text-gray-500">Quên mật khẩu </p> */}
         </Form.Item>
       </Form>
     </div>
