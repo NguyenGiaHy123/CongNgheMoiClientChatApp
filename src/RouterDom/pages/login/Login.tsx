@@ -16,7 +16,7 @@ export default function Login() {
   const [responseRecapCha, setResponeRecapCha] = useState(false);
   const dispatch=useDispatch();
   const loading=useSelector((state:any)=>state.Users.loading)
-const navigate=useNavigate()
+  const navigate=useNavigate()
   console.log(responseRecapCha)
   
 

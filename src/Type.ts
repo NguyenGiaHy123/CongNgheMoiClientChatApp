@@ -34,3 +34,13 @@ export interface IRouteConfig {
     tokenUser:String|null
     
   }
+
+  export interface IRegister {
+    name: string;
+    password: string;
+    displayName: string;
+    status: string;
+    phone: string;
+    email: string;
+    avatar: string;
+  }

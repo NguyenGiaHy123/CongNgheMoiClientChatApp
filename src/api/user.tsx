@@ -1,4 +1,4 @@
-import { ILogin } from "../Type";
+import { ILogin, IRegister } from "../Type";
 import axiosClient from "./axiosClient"
 
 const UserApi={
@@ -9,6 +9,11 @@ const UserApi={
     ,
     UserLogin:(data:ILogin)=>{
         const url='/users/login'
+        return axiosClient.post(url,data)
+    }
+    ,
+    UserRegister:(data:IRegister)=>{
+        const url='/users/register'
         return axiosClient.post(url,data)
     }
 }
