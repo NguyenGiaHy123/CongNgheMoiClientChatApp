@@ -4,11 +4,11 @@ import "./App.css";
 import { lazy, Suspense, useContext, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import NotFound from "./RouterDom/pages/NotFound/NotFound";
-import Loading from "./Loading";
 import Footer from "./component/Footer/Footer";
 import AllPage from "./RouterDom/Page";
 import Login from "./RouterDom/pages/login/Login";
 import Header from "./component/Header/Header";
+import Loading from "./Loading";
 function App() {
   const showPageUser = (AllPage: any) => {
     if (AllPage.length > 0) {
